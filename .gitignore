@@ -1,0 +1,81 @@
+# Movie Recommender Project - GitIgnore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Database files
+*.db
+*.sqlite
+tmdb.db
+
+# CSV data files (descomente se não quiser versionar os dados grandes)
+# movies.csv
+# movie.csv
+
+# Logs
+*.log
+uvicorn.log
+
+# Environment variables
+.env.local
+.env.production
+.env.staging
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Python package distribution
+build/
+dist/
+*.egg-info/
+
+# Coverage reports
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Machine Learning models
+*.pkl
+*.joblib
+*.model
+
+# Node.js (caso adicione dependências frontend no futuro)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Configurações locais
+config_local.py
+settings_local.py

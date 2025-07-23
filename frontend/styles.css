@@ -1,0 +1,181 @@
+/* Estilos adicionais para animações e melhorias */
+
+/* Animações suaves */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animação de entrada para cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.movie-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Delay progressivo para animação de cards */
+.movie-card:nth-child(1) { animation-delay: 0.1s; }
+.movie-card:nth-child(2) { animation-delay: 0.2s; }
+.movie-card:nth-child(3) { animation-delay: 0.3s; }
+.movie-card:nth-child(4) { animation-delay: 0.4s; }
+.movie-card:nth-child(5) { animation-delay: 0.5s; }
+.movie-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Efeito de hover melhorado */
+.movie-card:hover .card-title {
+    color: #667eea !important;
+}
+
+/* Gradiente animado no fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: -1;
+    animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    50% { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+    100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+}
+
+/* Melhorias no loading spinner */
+.loading-spinner {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Efeito de pulso nos botões */
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Melhorias na responsividade */
+@media (max-width: 576px) {
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .movie-overview {
+        font-size: 0.85rem;
+    }
+    
+    .genre-tag {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+}
+
+/* Estilo para alertas personalizados */
+.alert {
+    border: none;
+    border-radius: 15px;
+    animation: slideInDown 0.5s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Melhorias no modal */
+.modal-content {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0 0 20px 20px;
+}
+
+/* Efeito glass morphism nos cards */
+.card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Melhorias nos badges */
+.rating-badge, .similarity-score {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Efeito de hover nos genre tags */
+.genre-tag:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: scale(1.05);
+}
+
+/* Animação para o navbar */
+.navbar {
+    animation: slideInDown 0.8s ease;
+}
+
+/* Estilo para texto destacado */
+.highlight {
+    background: linear-gradient(120deg, rgba(102, 126, 234, 0.3) 0%, rgba(102, 126, 234, 0.3) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 90%;
+}
+
+/* Melhorias no footer */
+footer {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.7);
+}

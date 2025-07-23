@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender - Sistema de Recomendação de Filmes</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .main-container {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .movie-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .search-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+        
+        .form-control {
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.9);
+            padding: 12px 20px;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .rating-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .similarity-score {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .loading-spinner {
+            display: none;
+        }
+        
+        .genre-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .movie-overview {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding-top: 120px;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-film text-primary me-2"></i>
+                Movie Recommender
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#movies">Filmes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recommendations">Recomendações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Sobre</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container main-container">
+        <!-- Header Section -->
+        <div class="text-center text-white mb-5">
+            <h1 class="display-4 fw-bold mb-3">Descubra Novos Filmes</h1>
+            <p class="lead">Sistema inteligente de recomendação baseado em similaridade de conteúdo</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="movieIdInput" class="form-label text-white fw-semibold">
+                        <i class="bi bi-search me-2"></i>Buscar Filme por ID
+                    </label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="movieIdInput" placeholder="Digite o ID do filme...">
+                        <button class="btn btn-primary" onclick="searchMovie()">
+                            <i class="bi bi-search me-2"></i>Buscar
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="recommendInput" class="form-label text-white fw-semibold">
+                        <i class="bi bi-magic me-2"></i>Obter Recomendações
+                    </label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="recommendInput" placeholder="ID do filme para recomendar...">
+                        <button class="btn btn-primary" onclick="getRecommendations()">
+                            <i class="bi bi-stars me-2"></i>Recomendar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-outline-light me-2" onclick="loadMovies()">
+                        <i class="bi bi-list me-2"></i>Listar Filmes
+                    </button>
+                    <button class="btn btn-outline-light" onclick="clearResults()">
+                        <i class="bi bi-x-circle me-2"></i>Limpar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="text-center loading-spinner" id="loadingSpinner">
+            <div class="spinner-border text-light" role="status" aria-label="Carregando conteúdo">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="text-light mt-2">Carregando...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="row"></div>
+
+        <!-- Recommendations Section -->
+        <div id="recommendationsSection" class="mt-4"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-white py-4">
+        <div class="container">
+            <p class="mb-0">© 2025 Movie Recommender - Powered by FastAPI & Bootstrap</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
