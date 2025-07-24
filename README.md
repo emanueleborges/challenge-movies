@@ -66,7 +66,7 @@ export DATABASE_URL="postgresql+psycopg2://postgres:senha@localhost/tmdb"
 https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies
 baixar o arquivo no link acima: TMDB_movie_dataset_v11.csv(567.66 MB)
 renomear TMDB_movie_dataset_v11.csv Para movies.csv
-
+copiar movies.csv para dentro da pasta: scripts
 
 cd scripts
 python import_dataset.py
